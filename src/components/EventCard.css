@@ -1,41 +1,73 @@
 .event-card {
-  background-color: white;
-  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 0.75rem;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-sizing: border-box;
 }
 
+/* If your image has a class, this covers it too */
+.event-card img,
 .event-image {
   width: 100%;
-  height: 200px;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
+  display: block;
 }
 
-.event-info {
-  padding: 20px;
+.event-card-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .event-title {
-  font-size: 20px;
-  margin-bottom: 12px;
-  color: #2c3e50;
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.3;
 }
 
-.event-date,
-.event-venue {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 8px;
+.event-details,
+.event-meta {
+  font-size: 0.95rem;
+  line-height: 1.4;
 }
 
-.view-button {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 10px 20px;
-  background-color: #3498db;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 600;
+/* Button must be easy to tap on mobile (44px min height) */
+.event-card button,
+.view-details-btn,
+.btn {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+}
+
+/* Tablet+ makes button not forced full width */
+@media (min-width: 768px) {
+  .event-title {
+    font-size: 1.1rem;
+  }
+
+  .event-card button,
+  .view-details-btn,
+  .btn {
+    width: auto;
+    align-self: flex-start;
+  }
+}
+
+/* Desktop+ slightly more spacing */
+@media (min-width: 1024px) {
+  .event-card-content {
+    padding: 1.25rem;
+  }
+
+  .event-title {
+    font-size: 1.15rem;
+  }
 }

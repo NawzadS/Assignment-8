@@ -1,62 +1,122 @@
-.events-page {
-  padding: 40px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
+/* ========== MOBILE FIRST (default / 375px) ========== */
 
-.loading {
-  text-align: center;
-  padding: 100px 0;
-  font-size: 24px;
-  color: #666;
+.events-page {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
 }
 
 .page-header {
-  margin-bottom: 40px;
+  margin-bottom: 1rem;
 }
 
 .page-header h1 {
-  font-size: 42px;
-  color: #2c3e50;
-  margin-bottom: 10px;
+  font-size: 1.8rem;
+  line-height: 1.2;
+  margin: 0;
 }
 
 .page-header p {
-  font-size: 18px;
-  color: #666;
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
 }
 
 .events-container {
   display: flex;
-  gap: 40px;
+  flex-direction: column; /* stack sidebar + grid on mobile */
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* Sidebar full width on mobile */
 .sidebar {
-  width: 280px;
-  flex-shrink: 0;
+  width: 100%;
 }
 
 .filter-section {
-  background-color: white;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-sizing: border-box;
 }
 
 .filter-section h2 {
-  font-size: 24px;
-  margin-bottom: 15px;
-  color: #2c3e50;
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem;
 }
 
 .filter-note {
-  font-size: 14px;
-  color: #999;
+  margin: 0;
+  font-size: 0.95rem;
 }
 
+/* Grid is 1 column on mobile */
 .events-grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.events-grid > * {
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+/* Prevent random horizontal scrolling */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ========== TABLET (768px) ========== */
+@media (min-width: 768px) {
+  .events-page {
+    padding: 1.5rem;
+  }
+
+  .events-container {
+    flex-direction: row; /* sidebar left, grid right */
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .sidebar {
+    flex: 0 0 16rem; /* fixed-ish sidebar */
+  }
+
+  .events-grid {
+    flex: 1;
+  }
+
+  /* 2 columns on tablet */
+  .events-grid > * {
+    flex: 1 1 calc(50% - 0.5rem);
+  }
+}
+
+/* ========== DESKTOP (1024px) ========== */
+@media (min-width: 1024px) {
+  .events-page {
+    max-width: 75rem; /* ~1200px */
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .events-container {
+    gap: 2rem;
+  }
+
+  .sidebar {
+    flex: 0 0 18rem; /* a bit wider on desktop */
+  }
+}
+
+/* Optional: big screens -> 3 columns */
+@media (min-width: 1200px) {
+  .events-grid > * {
+    flex: 1 1 calc(33.333% - 0.75rem);
+  }
 }

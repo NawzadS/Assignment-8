@@ -1,27 +1,49 @@
 const API_KEY = import.meta.env.VITE_TICKETMASTER_API_KEY;
-const BASE_URL = 'https://app.ticketmaster.com/discovery/v2';
 
-export const getEvents = async (city = 'New York', size = 20) => {
-  const response = await fetch(
-    `${BASE_URL}/events.json?apikey=${API_KEY}&size=${size}&city=${city}`
-  );
-  
-  if (!response.ok) {
-    throw new Error('Failed to fetch events');
-  }
-  
-  const data = await response.json();
-  return data._embedded?.events || [];
-};
+// Get list of events (Events page)
+export async function getEvents() {
+  try {
+    if (!API_KEY) {
+      console.error("Missing VITE_TICKETMASTER_API_KEY. Check .env and restart Vite.");
+      return [];
+    }
 
-export const getEventById = async (id) => {
-  const response = await fetch(
-    `${BASE_URL}/events/${id}.json?apikey=${API_KEY}`
-  );
-  
-  if (!response.ok) {
-    throw new Error('Failed to fetch event details');
+    const url = `/api/ticketmaster/discovery/v2/events.json?apikey=${API_KEY}&size=20&city=New%20York`;
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      console.error(`Ticketmaster request failed: ${res.status}`);
+      return [];
+    }
+
+    const data = await res.json();
+    return data?._embedded?.events ?? [];
+  } catch (err) {
+    console.error("Ticketmaster fetch crashed:", err);
+    return [];
   }
-  
-  return await response.json();
-};
+}
+
+// Get a single event by id (Event detail page)
+export async function getEventById(id) {
+  try {
+    if (!API_KEY) {
+      console.error("Missing VITE_TICKETMASTER_API_KEY. Check .env and restart Vite.");
+      return null;
+    }
+
+    const url = `/api/ticketmaster/discovery/v2/events/${id}.json?apikey=${API_KEY}`;
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      console.error(`Ticketmaster event request failed: ${res.status}`);
+      return null;
+    }
+
+    const data = await res.json();
+    return data ?? null;
+  } catch (err) {
+    console.error("Ticketmaster getEventById crashed:", err);
+    return null;
+  }
+}
